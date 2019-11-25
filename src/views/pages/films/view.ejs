@@ -1,0 +1,28 @@
+<%- include('../../fragments/header.ejs'); %>
+
+<div class="line _bordered">
+    <a href="/films/add">Добавить</a>
+</div>
+
+<div class="line _table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Дата выхода</th>
+                    <th>Автор </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% films.forEach(film => { %>
+                    <tr>
+                        <td><%= film.title %></td>
+                        <td><%= film.dateRelise %></td>
+                        <td><%= film.author %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+</div>
+
+<%- include('../../fragments/footer.ejs'); %>
