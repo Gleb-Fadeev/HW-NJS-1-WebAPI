@@ -11,6 +11,31 @@ const filmsRepo = {
         const films = await this.getAll();
         films.push(film);
         await writeJsonFile(FILE_PATH, films);
+    },
+    async update(film){
+        const films = await this.getAll();
+        const updFilms = films.map(f => {//Проходит по массиву заменяя 1 элемент который пришёл
+            if(f.id === film.id){
+                return film; 
+            }
+            return f;
+        });
+        console.log(updFilms);
+        
+        
+        await writeJsonFile(FILE_PATH, updFilms);
+    },
+    async delete(filmId){
+        const films = await this.getAll();
+        
+        const updFilm = films.filter(f => {
+            if(filmId === f.id){
+                
+                return false;
+            }
+            return true;
+        })
+        await writeJsonFile(FILE_PATH, updFilm);
     }
 };
 

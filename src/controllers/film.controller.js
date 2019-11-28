@@ -13,8 +13,32 @@ router.get('/add', (_request, response) => {
 })
 
 router.post('/add', async (request, response) => {
-    await filmRepo.add(request.body);
+    const film = {
+        id : Date.now().toString(),
+        ...request.body
+    }
+    await filmRepo.add(film);
     response.redirect('/films');
 });
 
+router.get('/update/:id', async(_request, response) => {
+    const films = await filmRepo.getAll();
+    console.log(_request.params.id);
+    
+    const film = films.find(f => f.id === _request.params.id);
+    response.render('pages/films/update', {film});
+})
+
+router.post('/update', async (request, response) => {
+    await filmRepo.update(request.body);
+    response.redirect('/films');
+});
+
+router.delete('/:id', async (request, response) => {
+    console.log(request.params);
+    
+    await filmRepo.delete(request.params.id);
+    console.log('rrereeee');
+    response.end();
+});
 module.exports = router;
